@@ -10,7 +10,7 @@ if (!app) {
   throw new Error('Elemento #app não encontrado.')
 }
 
-app.innerHTML = App()
+if (window.location.pathname === '/') app.innerHTML = App()
 
 iniciarLoja()
 

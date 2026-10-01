@@ -52,11 +52,11 @@ export function App() {
         id="produtos"
         class="produtos"
         aria-live="polite"
-      ></section>
+      >${produtos.map(ProdutoCard).join('')}</section>
     </main>
 
     <footer>
-      <strong>🛍️ TUDOBRAZ © 2026</strong>
+      <strong>🛍️ Tudo Braz © 2026</strong>
       <p>Tudo o que você precisa, em um só lugar.</p>
     </footer>
 
@@ -190,7 +190,8 @@ function iniciarEventosDosProdutos() {
         return
       }
 
-      navegar(`/produto/${produtoId}`)
+      const produto = produtos.find(item => item.id === produtoId)
+      if (produto) navegar(`/produto/${produto.slug}`)
       return
     }
 
