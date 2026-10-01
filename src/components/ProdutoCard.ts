@@ -63,13 +63,13 @@ export function ProdutoCard(produto: Produto) {
             🛒 Adicionar ao carrinho
           </button>
 
-          <button
+          <a
+            href="/produto/${produto.slug}"
             class="btn-detalhes"
             data-produto="${produto.id}"
-            type="button"
           >
             👁️ Ver detalhes
-          </button>
+          </a>
 
           <a
             class="btn-shopee"

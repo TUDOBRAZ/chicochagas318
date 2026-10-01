@@ -1,11 +1,11 @@
 export function Header() {
   return `
     <header class="topo">
-      <a class="logo" href="#" aria-label="Página inicial da TUDOBRAZ">
+      <a class="logo" href="/" aria-label="Página inicial da Tudo Braz">
         <span class="logo-icone">🛍️</span>
 
         <span class="logo-texto">
-          <strong>TUDOBRAZ</strong>
+          <strong>Tudo Braz</strong>
           <small>Tudo o que você precisa</small>
         </span>
       </a>
@@ -38,7 +38,7 @@ export function Header() {
           href="https://wa.me/5575991934618"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Falar com a TUDOBRAZ pelo WhatsApp"
+          aria-label="Falar com a Tudo Braz pelo WhatsApp"
         >
           💬 WhatsApp
         </a>
