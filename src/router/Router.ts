@@ -1,4 +1,5 @@
 import { produtos } from '../data/produtos'
+import { aplicarMetadados } from '../seo'
 import { Detalhes } from '../pages/Produto/Detalhes'
 
 import {
@@ -24,22 +25,25 @@ export function carregarPagina() {
 
 function carregarPaginaDoProduto(caminho: string) {
   const partes = caminho.split('/')
-  const produtoId = Number(partes[2])
+  const slug = partes[2]
 
   const produto = produtos.find(
-    item => item.id === produtoId
+    item => item.slug === slug
   )
 
   const conteudoPrincipal =
     document.querySelector<HTMLElement>('main')
 
   if (!produto || !conteudoPrincipal) {
-    window.history.replaceState({}, '', '/')
-    window.location.reload()
+    if (conteudoPrincipal) {
+      conteudoPrincipal.innerHTML = '<h1>Produto indisponível</h1><p>Este produto não está mais na vitrine.</p><a href="/">Ver produtos da Tudo Braz</a>'
+      aplicarMetadados(null, true)
+    }
     return
   }
 
   conteudoPrincipal.innerHTML = Detalhes(produto)
+  aplicarMetadados(produto)
 
   iniciarEventosDaPaginaDoProduto(produto.id)
 
@@ -122,6 +126,6 @@ function iniciarEventosDaPaginaDoProduto(
   })
 }
 
-window.addEventListener('popstate', () => {
+if (typeof window !== 'undefined') window.addEventListener('popstate', () => {
   window.location.reload()
 })
