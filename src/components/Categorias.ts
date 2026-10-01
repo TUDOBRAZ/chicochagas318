@@ -12,11 +12,11 @@ export function Categorias() {
       </button>
 
       <button
-        data-categoria="infantil"
+        data-categoria="casa"
         type="button"
       >
-        🛴
-        <span>Infantil</span>
+        🏠
+        <span>Casa</span>
       </button>
 
       <button

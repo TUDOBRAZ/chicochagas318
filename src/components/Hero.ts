@@ -1,4 +1,4 @@
-import heroImagem from '../assets/imagens/hero.png'
+const heroImagem = 'https://tudobraz.com.br/brand/tudo-braz-logo.png'
 
 export function Hero() {
   return `
@@ -11,7 +11,7 @@ export function Hero() {
         </span>
 
         <h1>
-          Bem-vindo à <span>TUDOBRAZ</span>
+          Bem-vindo à <span>Tudo Braz</span>
         </h1>
 
         <p>
@@ -43,7 +43,7 @@ export function Hero() {
 
         <img
           src="${heroImagem}"
-          alt="Banner principal da TUDOBRAZ"
+          alt="Banner principal da Tudo Braz"
         />
 
       </div>
