@@ -22,13 +22,12 @@ export function Detalhes(produto: Produto) {
   return `
     <section class="pagina-produto">
 
-      <button
-        id="voltar-loja"
+      <a
+        href="/"
         class="btn-voltar"
-        type="button"
       >
         ← Voltar para a loja
-      </button>
+      </a>
 
       <div class="produto-detalhes">
 

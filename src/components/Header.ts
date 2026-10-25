@@ -44,5 +44,9 @@ export function Header() {
         </a>
       </div>
     </header>
+    <nav class="navegacao-loja" aria-label="Navegação da loja">
+      <a href="/">Produtos</a>
+      <a href="/guias">Guias de compra</a>
+    </nav>
   `
 }

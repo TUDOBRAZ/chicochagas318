@@ -1146,3 +1146,17 @@ footer p {
     font-size: 27px;
   }
 }
+/* Navegação disponível também sem JavaScript. */
+.navegacao-loja {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+  justify-content: center;
+}
+.navegacao-loja a { color: inherit; text-decoration: underline; }
+.navegacao-loja a:focus-visible { outline: 3px solid #ee4d2d; outline-offset: 4px; }
+.guia-compra { max-width: 900px; margin: auto; padding: 2rem 1rem; line-height: 1.7; }
+.guia-compra h1, .guia-compra h2 { margin: 1.5rem 0 0.75rem; }
+.guia-compra ul { padding-left: 1.5rem; }
+.guia-compra a { color: #a62d13; text-decoration: underline; }
