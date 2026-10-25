@@ -1,6 +1,6 @@
 # Tudo Braz
 
-Vitrine com os 12 produtos presentes em tudobraz.com.br em 30/09/2026 e links individuais para a Shopee. Catálogo: `src/data/catalogo.json`.
+Implementação alternativa da vitrine, com os 16 produtos disponíveis em tudobraz.com.br sincronizados em 25/10/2026 e links individuais para a Shopee. Catálogo: `src/data/catalogo.json`.
 
 ```sh
 npm ci
@@ -18,4 +18,4 @@ A minimoto não pertence ao catálogo e não deve ser reinserida enquanto estive
 
 O build gera `/guias` e o guia de panelas de 9 peças, com navegação por links HTML. O comando `npm run build` também verifica as páginas geradas: links internos, sitemap, título, descrição, um único h1, canonical e JSON-LD válido. Uma falha impede a conclusão do build. O sitemap final fica em `dist/sitemap.xml`; o build não altera o arquivo de origem em `public/`.
 
-Antes de publicar, sincronize o catálogo e as imagens com a vitrine em produção: esta versão contém 12 produtos, enquanto a vitrine consultada em 25/10/2026 continha 16. Não use esta branch como substituição direta da hospedagem atual. A validação técnica não confirma estoque, preço na Shopee nem indexação no Google.
+O catálogo foi sincronizado com os 16 produtos disponíveis da hospedagem em 25/10/2026, preservando slugs, descrições, imagens e destinos da Shopee. Os 4 registros indisponíveis da hospedagem não foram ativados nesta vitrine. A implementação publicada em React/Vinext é mantida no repositório de origem do Sites; este GitHub mantém a implementação alternativa em Vite. As publicações são independentes. A validação técnica não confirma estoque, preço na Shopee nem indexação no Google.
