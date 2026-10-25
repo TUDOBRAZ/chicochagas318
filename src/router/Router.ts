@@ -56,11 +56,6 @@ function carregarPaginaDoProduto(caminho: string) {
 function iniciarEventosDaPaginaDoProduto(
   produtoId: number
 ) {
-  const botaoVoltar =
-    document.querySelector<HTMLButtonElement>(
-      '#voltar-loja'
-    )
-
   const botaoAdicionar =
     document.querySelector<HTMLButtonElement>(
       '#adicionar-detalhes'
@@ -75,11 +70,6 @@ function iniciarEventosDaPaginaDoProduto(
     document.querySelectorAll<HTMLButtonElement>(
       '.miniatura'
     )
-
-  botaoVoltar?.addEventListener('click', () => {
-    window.history.pushState({}, '', '/')
-    window.location.reload()
-  })
 
   botaoAdicionar?.addEventListener('click', () => {
     const produto = produtos.find(
