@@ -11,16 +11,42 @@ async function save(path, page) {
 await save('', renderPage())
 for (const p of produtos) await save(`produto/${p.slug}`, renderPage(p.slug))
 const featured = produtos.find(p => p.slug === 'conjunto-panelas-antiaderente-9-pecas-azul')
-const guide = renderPage()
-guide.meta.title = 'Conjunto de Panelas Antiaderente 9 Peças na Shopee | Tudo Braz'
-guide.meta.description = featured.descricao
-guide.meta.canonical = 'https://tudobraz.com.br/guias/conjunto-panelas-9-pecas'
-guide.body = `<header><a href="/">Tudo Braz</a></header><main class="pagina-produto"><h1>${featured.nome}</h1><p>${featured.descricao}</p><p>Confira fotos, preço, disponibilidade e frete no anúncio da Tudo Braz.</p><a href="/produto/${featured.slug}">Ver detalhes do conjunto</a><p><a href="${featured.linkShopee}" target="_blank" rel="noopener noreferrer">Comprar na Shopee</a></p></main>`
-guide.structured = { '@context': 'https://schema.org', '@type': 'WebPage', name: guide.meta.title, url: guide.meta.canonical, description: guide.meta.description }
+if (!featured) throw new Error('O guia precisa de um produto ativo no catálogo.')
+function guidePage(path, title, description, content) {
+  const page = renderPage()
+  page.meta = { ...page.meta, title, description, canonical: `https://tudobraz.com.br/${path}`, image: featured.imagem }
+  page.body = `<header class="topo"><a class="logo" href="/">Tudo Braz</a></header><nav class="navegacao-loja" aria-label="Navegação da loja"><a href="/">Produtos</a><a href="/guias">Guias de compra</a></nav><main class="guia-compra">${content}</main><footer>Tudo Braz</footer>`
+  page.structured = { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url: page.meta.canonical, description }
+  return page
+}
+const guide = guidePage(
+  'guias/conjunto-panelas-9-pecas',
+  'Como escolher um conjunto de panelas de 9 peças | Tudo Braz',
+  'Veja o que conferir em um conjunto de panelas antiaderente de 9 peças: composição, tampas, compatibilidade com o fogão, cuidados e condições na Shopee.',
+  `<p><a href="/guias">← Todos os guias</a></p>
+  <h1>Como escolher um conjunto de panelas antiaderente de 9 peças</h1>
+  <p>Antes de comprar, compare a composição do conjunto com as receitas e quantidades que você prepara no dia a dia. O número de peças sozinho não informa os tamanhos nem a capacidade das panelas.</p>
+  <h2>O que conferir no anúncio</h2>
+  <ul><li><strong>Composição:</strong> confira quais panelas, tampas e acessórios entram na contagem de nove peças.</li>
+  <li><strong>Tamanhos:</strong> verifique diâmetros e capacidades para saber se atendem à sua rotina.</li>
+  <li><strong>Fogão:</strong> confirme a compatibilidade na descrição do fabricante, principalmente se você usa indução.</li>
+  <li><strong>Cuidados:</strong> consulte as instruções de limpeza e os utensílios indicados para preservar o revestimento antiaderente.</li></ul>
+  <h2>Conheça o conjunto da vitrine</h2>
+  <p>${esc(featured.descricao)}</p>
+  <p><a href="/produto/${featured.slug}">Ver fotos e detalhes do ${esc(featured.nome)}</a></p>
+  <h2>Antes de finalizar a compra</h2>
+  <p>Confira o preço atualizado, o estoque, o frete para o seu CEP e o prazo de entrega na Shopee. A compra e o pagamento são realizados por lá.</p>
+  <p><a href="${esc(featured.linkShopee)}" target="_blank" rel="noopener noreferrer">Conferir o anúncio na Shopee</a></p>`
+)
 await save('guias/conjunto-panelas-9-pecas', guide)
-const urls = ['https://tudobraz.com.br', ...produtos.map(p => `https://tudobraz.com.br/produto/${p.slug}`), guide.meta.canonical]
+const guides = guidePage(
+  'guias', 'Guias de compra para casa e cozinha | Tudo Braz',
+  'Guias da Tudo Braz para comparar produtos de casa e cozinha e conferir os detalhes antes de comprar na Shopee.',
+  `<h1>Guias de compra da Tudo Braz</h1><p>Confira o que observar antes de escolher produtos para sua casa e cozinha.</p><article><h2><a href="/guias/conjunto-panelas-9-pecas">Como escolher um conjunto de panelas de 9 peças</a></h2><p>Composição, tamanhos, compatibilidade com o fogão e cuidados com o revestimento antiaderente.</p></article><p><a href="/">Explorar os produtos da vitrine</a></p>`
+)
+await save('guias', guides)
+const urls = ['https://tudobraz.com.br', ...produtos.map(p => `https://tudobraz.com.br/produto/${p.slug}`), guides.meta.canonical, guide.meta.canonical]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(url => `<url><loc>${url}</loc></url>`).join('\n')}\n</urlset>\n`
 await writeFile('dist/sitemap.xml', sitemap)
-await writeFile('public/sitemap.xml', sitemap)
 await writeFile('dist/404.html', '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex, follow"><title>Página indisponível | Tudo Braz</title></head><body><h1>Página indisponível</h1><p>Este produto não está mais na vitrine.</p><a href="/">Ver produtos da Tudo Braz</a></body></html>')
 console.log(`Pré-renderizadas ${urls.length} páginas; sitemap sem produtos desativados.`)
